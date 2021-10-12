@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'demo.dart';
+import 'chess_game.dart';
 
 
 /// This example shows how to use the chessboard widget.
@@ -11,5 +11,5 @@ import 'demo.dart';
 /// can also be iterated with the right/left arrow keyboards
 
 void main() {
-  runApp(Demo());
+  runApp(MaterialApp(home: ChessGame()));
 }

@@ -1,6 +1,6 @@
 name: chessboard_js
 description: A chessboard widget to use with chessjs. Use chessjs for the logic of the game, and this package to display the game.
-version: 0.0.2+7
+version: 0.0.3
 homepage: https://github.com/chessasuke/chessboard_js
 #publish_to: none
 

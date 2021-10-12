@@ -1,3 +1,5 @@
+import 'package:chessboard_js/models/move_model.dart';
+
 import '../models/square_model.dart';
 import '../models/move_history.dart';
 import 'package:chessjs/chessjs.dart' as chessjs;
@@ -35,7 +37,8 @@ class ChessboardController {
       if (validateFen['valid'] == true) {
         _logic.load(startingPosition);
       } else {
-        assert(validateFen['valid'] != true, '[Error] fen is not valid: ${validateFen['error']}');
+        assert(validateFen['valid'] != true,
+            '[Error] fen is not valid: ${validateFen['error']}');
       }
     }
     buildBoard();
@@ -72,7 +75,7 @@ class ChessboardController {
   OfferDrawCallback? onOfferDraw;
 
   ChessboardModel get board => _chessboard;
-  MoveHistoryModel get moveHistory => _moveHistoryNotifier.value;
+  MoveHistoryNotifier get moveHistoryNotifier => _moveHistoryNotifier;
   chessjs.Chess get logic => _logic;
 
   bool get movesEnable => _enableMoves;
@@ -105,13 +108,20 @@ class ChessboardController {
   /// make the actual logic move, used by other functions
   void _makeMove(chessjs.Move move) {
     _logic.makeMove(move);
-    // _moveHistory.addMoveToHistory(_logic.getHistorySAN().last);
+
+    /// update history move
+    _moveHistoryNotifier
+        .addMoveNode(NodeMoveModel(move: _logic.getHistorySAN().last));
+    _moveHistoryNotifier.goForward();
   }
 
   /// undo a logical move and updates the board
   void undoMove() {
     final move = _logic.undoMove();
+    /// update history move
     _moveHistoryNotifier.removeMoveNode();
+    _moveHistoryNotifier.goBackward();
+    /// update board
     if (move != null) _updateBoardAfterMove(move);
   }
 

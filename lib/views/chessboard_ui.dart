@@ -73,7 +73,6 @@ class ChessBoard extends StatelessWidget {
     final pieceSize = size / 8;
     return NotificationListener<MoveNotification>(
       onNotification: (moveNotifier) {
-        print('moveNotifier: ${moveNotifier.move}');
         controller.makePrettyMove(moveNotifier.move);
         return true;
       },

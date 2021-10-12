@@ -1,3 +1,3 @@
-## 0.0.2+7
+## 0.0.3
 
-upgrade dart 2.13
+remove state management dependencies

@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'square_model.dart';
 import '../utils/constants.dart';
-import 'package:chessjs/pieces.dart';
-import 'package:chessjs/chessjs.dart' as chessjs;
 
 /// List of each square and their states
 
