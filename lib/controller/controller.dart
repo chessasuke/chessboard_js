@@ -69,8 +69,12 @@ class ChessboardController {
     }
   }
 
-  toggleMovesEnabled() {
-    _chessboard.enableMoves = !_chessboard.enableMoves;
+  enableMoves() {
+    _chessboard.enableMoves = true;
+  }
+
+  disableMoves() {
+    _chessboard.enableMoves = false;
   }
 
   flipBoard() {

@@ -54,7 +54,13 @@ class ChessGame extends StatelessWidget {
                           Tooltip(
                             message: 'Enable/Disable moves',
                             child: InkWell(
-                              onTap: () => controller.toggleMovesEnabled(),
+                              onTap: () {
+                                if (controller.board.enableMoves) {
+                                  controller.disableMoves();
+                                } else {
+                                  controller.enableMoves();
+                                }
+                              },
                               child: Icon(Icons.block),
                             ),
                           ),
