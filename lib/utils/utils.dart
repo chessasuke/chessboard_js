@@ -1,3 +1,4 @@
+import 'package:chessboard_js/chessboard_js.dart';
 import 'package:chessjs/pieces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -148,4 +149,15 @@ Widget getImageToDisplay({
   }
 
   return imageToDisplay;
+}
+
+String getResultFromEnum(ChessResult result) {
+  switch (result) {
+    case ChessResult.white:
+      return '1-0';
+    case ChessResult.black:
+      return '1-0';
+    default:
+      return '1/2';
+  }
 }

@@ -1,5 +1,10 @@
 const String moveSoundPath = 'packages/chessboard_js/assets/chess_move.mp3';
 
+/// use by controller to allow playing, null means a user can play both colors
+/// true for enable play just if user is white and is white turn
+/// false for enable play just if user is black and is black turn
+enum PlayerMode { isWhite, isBlack, none, any }
+
 /// Enum which stores board types
 enum BoardType {
   brown,

@@ -28,6 +28,7 @@ class SquareModel extends Equatable {
 
 
 /// Notifier for updates on the state ([squarePiece]) of the respective square.
+/// This approach can target specific squares, and avoids rebuilding the whole board
 class SquareNotifier extends ValueNotifier<SquareModel> {
   SquareNotifier(value) : super(value);
 

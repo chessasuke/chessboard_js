@@ -1,3 +1,3 @@
-## 0.0.3
+## 0.1.0
 
-remove state management dependencies
+remove state management dependencies, fixed bugs, added flip board, enable/disable moves

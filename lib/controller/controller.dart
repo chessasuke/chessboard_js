@@ -1,5 +1,5 @@
 import 'package:chessboard_js/models/move_model.dart';
-
+import 'package:chessboard_js/utils/constants.dart';
 import '../models/square_model.dart';
 import '../models/move_history.dart';
 import 'package:chessjs/chessjs.dart' as chessjs;
@@ -21,15 +21,8 @@ class ChessboardController {
     this.onCheckMate,
     this.onResign,
     this.onOfferDraw,
-    bool? enableMoves,
-    bool? whiteSideTowardUser,
-    bool? isUserWhite,
     String? startingPosition,
   }) {
-    _enableMoves = enableMoves ?? true;
-    _whiteSideTowardUser = whiteSideTowardUser ?? true;
-    _isUserWhite = isUserWhite;
-
     _logic = chessjs.Chess();
 
     if (startingPosition != null) {
@@ -46,25 +39,13 @@ class ChessboardController {
 
   /// private fields
   /// model of the board, store the current state of each square
-  final ChessboardModel _chessboard = ChessboardModel();
+  ChessboardModel _chessboard = ChessboardModel();
 
   /// the actual logic
   late final chessjs.Chess _logic;
 
   /// keep track of the move history for the chessboard_notation
   final MoveHistoryNotifier _moveHistoryNotifier = MoveHistoryNotifier();
-
-  /// if board is locked
-  late final bool _enableMoves;
-
-  /// if white is toward the user
-  late final bool _whiteSideTowardUser;
-
-  /// to control who is allowed to play
-  /// null doesnt put limitations
-  /// true for enable play just if user is white and is white turn
-  /// false for enable play just if user is black and is black turn
-  late final bool? _isUserWhite;
 
   /// callbacks
   MoveCallback? onMove;
@@ -78,10 +59,6 @@ class ChessboardController {
   MoveHistoryNotifier get moveHistoryNotifier => _moveHistoryNotifier;
   chessjs.Chess get logic => _logic;
 
-  bool get movesEnable => _enableMoves;
-  bool get whiteTowardUser => _whiteSideTowardUser;
-  bool? get isUserWhite => _isUserWhite;
-
   /// build the board according to the logic state
   void buildBoard() {
     for (final square in _chessboard.squares) {
@@ -90,6 +67,18 @@ class ChessboardController {
         updateSquare(square.value.squareName);
       }
     }
+  }
+
+  toggleMovesEnabled() {
+    _chessboard.enableMoves = !_chessboard.enableMoves;
+  }
+
+  flipBoard() {
+    _chessboard.whiteTowardUser = !_chessboard.whiteTowardUser;
+  }
+
+  setPlayerMode(PlayerMode mode) {
+    _chessboard.playerMode = mode;
   }
 
   /// get history of moves from logic
@@ -118,9 +107,11 @@ class ChessboardController {
   /// undo a logical move and updates the board
   void undoMove() {
     final move = _logic.undoMove();
+
     /// update history move
     _moveHistoryNotifier.removeMoveNode();
     _moveHistoryNotifier.goBackward();
+
     /// update board
     if (move != null) _updateBoardAfterMove(move);
   }

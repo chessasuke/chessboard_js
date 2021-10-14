@@ -1,5 +1,6 @@
-import 'package:chessboard_js/models/move_model.dart';
-import 'package:chessboard_js/models/square_model.dart';
+import '../models/move_model.dart';
+import '../models/square_model.dart';
+import '../utils/constants.dart';
 import 'package:chessjs/chessjs.dart' as chessjs;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -75,12 +76,12 @@ class SquareUI extends StatelessWidget {
                     if (moveInfo.length == 3) {
                       /// Accept only if the game turn is right and the enableUserMoves is true
                       if (moveInfo[2] == controller.logic.turn &&
-                          controller.movesEnable) {
+                          controller.board.enableMoves) {
                         /// control who are allowed to move with the isUserWhite property
-                        if (controller.isUserWhite == null ||
-                            (controller.isUserWhite == true &&
+                        if (controller.board.playerMode == PlayerMode.any ||
+                            (controller.board.playerMode == PlayerMode.isWhite &&
                                 controller.logic.turn == chessjs.WHITE) ||
-                            (controller.isUserWhite == false &&
+                            (controller.board.playerMode == PlayerMode.isBlack &&
                                 controller.logic.turn == chessjs.BLACK)) {
                           /// DO NOT ACCEPT ILLEGAL MOVES
                           final legalMoves = controller.logic.generateMoves();
