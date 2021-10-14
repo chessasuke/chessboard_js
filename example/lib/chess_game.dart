@@ -3,10 +3,13 @@ import 'package:chessboard_js/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:chessboard_js/chessboard_js.dart';
 
-class ChessGame extends StatelessWidget {
-  final ChessboardController controller = ChessboardController();
+class ChessGame extends StatefulWidget {
+  @override
+  State<ChessGame> createState() => _ChessGameState();
+}
 
-  final ValueNotifier<bool> flipBoard = ValueNotifier(true);
+class _ChessGameState extends State<ChessGame> {
+  final ChessboardController controller = ChessboardController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class ChessGame extends StatelessWidget {
               child: ChessBoard(
                 size: 500,
                 controller: controller,
-                whiteTowardUser: flipBoard,
+                // whiteTowardUser: flipBoard,
               ),
             ),
 
@@ -47,7 +50,10 @@ class ChessGame extends StatelessWidget {
                           Tooltip(
                             message: 'Flip board',
                             child: InkWell(
-                              onTap: () => flipBoard.value = !flipBoard.value,
+                              onTap: () => setState(() {
+                                controller.flipBoard();
+                              }),
+                              // onTap: () => flipBoard.value = !flipBoard.value,
                               child: Icon(Icons.flip_camera_android),
                             ),
                           ),

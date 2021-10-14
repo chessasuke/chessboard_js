@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import 'square_model.dart';
 import '../utils/constants.dart';
 
@@ -24,7 +22,7 @@ class ChessboardModel {
     }
   }
 
-/// list of states for the squares of this board
+  /// list of states for the squares of this board
   late final List<SquareNotifier> squares;
 
   /// if move on the board are locked
@@ -35,5 +33,4 @@ class ChessboardModel {
 
   /// if white is toward the user
   bool whiteTowardUser;
-  ValueNotifier<bool> get flipBoardNotifier => ValueNotifier(whiteTowardUser);
 }

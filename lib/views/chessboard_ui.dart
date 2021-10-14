@@ -12,15 +12,12 @@ class ChessBoard extends StatelessWidget {
   ChessBoard({
     required this.size,
     required this.controller,
-    required this.whiteTowardUser,
     this.boardType = BoardType.brown,
   });
 
   final ChessboardController controller;
   final double size;
   final BoardType boardType;
-  final ValueNotifier<bool> whiteTowardUser;
-
   final AudioPlayer audioPlayer = AudioPlayer();
 
   playLocal() async {
@@ -75,18 +72,33 @@ class ChessBoard extends StatelessWidget {
         controller.makePrettyMove(moveNotifier.move);
         return true;
       },
-      child: ValueListenableBuilder<bool>(
-          valueListenable: whiteTowardUser,
-          builder: (context, value, child) {
-            print('value: $value');
-            return Column(children: [
-              if (value)
-                for (final row in squareList)
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: row.map((squareName) {
-                        return SquareUI(
+      child: Column(children: [
+        if (controller.board.whiteTowardUser)
+          for (final row in squareList)
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: row.map((squareName) {
+                  return SquareUI(
+                    key: ValueKey(squareName),
+                    squareNotifier: controller.getSquareNotifier(squareName),
+                    squareName: squareName,
+                    size: pieceSize,
+                    controller: controller,
+                    onMove: (move) {
+                      playLocal();
+                    },
+                  );
+                }).toList(),
+              ),
+            )
+        else
+          for (final row in squareList.reversed)
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: row.reversed
+                    .map((squareName) => SquareUI(
                           key: ValueKey(squareName),
                           squareNotifier:
                               controller.getSquareNotifier(squareName),
@@ -96,32 +108,11 @@ class ChessBoard extends StatelessWidget {
                           onMove: (move) {
                             playLocal();
                           },
-                        );
-                      }).toList(),
-                    ),
-                  )
-              else
-                for (final row in squareList.reversed)
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: row.reversed
-                          .map((squareName) => SquareUI(
-                                key: ValueKey(squareName),
-                                squareNotifier:
-                                    controller.getSquareNotifier(squareName),
-                                squareName: squareName,
-                                size: pieceSize,
-                                controller: controller,
-                                onMove: (move) {
-                                  playLocal();
-                                },
-                              ))
-                          .toList(),
-                    ),
-                  )
-            ]);
-          }),
+                        ))
+                    .toList(),
+              ),
+            )
+      ]),
     );
   }
 
