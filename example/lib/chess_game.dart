@@ -48,7 +48,7 @@ class _ChessGameState extends State<ChessGame> {
                           child: Row(
                         children: [
                           Tooltip(
-                            message: 'Flip board',
+                            message: 'Flip Board',
                             child: InkWell(
                               onTap: () => setState(() {
                                 controller.flipBoard();
@@ -58,7 +58,7 @@ class _ChessGameState extends State<ChessGame> {
                             ),
                           ),
                           Tooltip(
-                            message: 'Enable/Disable moves',
+                            message: 'Enable/Disable Moves',
                             child: InkWell(
                               onTap: () {
                                 if (controller.board.enableMoves) {
@@ -68,6 +68,15 @@ class _ChessGameState extends State<ChessGame> {
                                 }
                               },
                               child: Icon(Icons.block),
+                            ),
+                          ),
+                          Tooltip(
+                            message: 'Enable/Disable Sound',
+                            child: InkWell(
+                              onTap: () {
+                                  controller.toggleSound();
+                              },
+                              child: Icon(Icons.music_note),
                             ),
                           ),
                         ],
