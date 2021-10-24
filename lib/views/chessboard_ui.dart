@@ -7,6 +7,8 @@ import 'package:flutter/painting.dart';
 import 'square_ui.dart';
 import '../controller/controller.dart';
 import '../utils/constants.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ChessBoard extends StatelessWidget {
   ChessBoard({
@@ -21,7 +23,13 @@ class ChessBoard extends StatelessWidget {
   final AudioPlayer audioPlayer = AudioPlayer();
 
   playLocal() async {
-    await audioPlayer.play(moveSoundPath, isLocal: true);
+    if (controller.board.soundEnable) {
+      if (kIsWeb) {
+        await audioPlayer.play(moveSoundPath, isLocal: true);
+      } else if (!Platform.isWindows) {
+        await audioPlayer.play(moveSoundPath, isLocal: true);
+      }
+    }
   }
 
   @override

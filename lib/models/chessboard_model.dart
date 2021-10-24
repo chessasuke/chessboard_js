@@ -6,6 +6,7 @@ class ChessboardModel {
   ChessboardModel({
     this.enableMoves = true,
     this.whiteTowardUser = true,
+    this.soundEnable = true,
     this.playerMode = PlayerMode.any,
     List<SquareNotifier>? board,
   }) {
@@ -33,4 +34,6 @@ class ChessboardModel {
 
   /// if white is toward the user
   bool whiteTowardUser;
+
+  bool soundEnable;
 }

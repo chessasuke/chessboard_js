@@ -85,6 +85,10 @@ class ChessboardController {
     _chessboard.playerMode = mode;
   }
 
+  toggleSound() {
+    _chessboard.soundEnable = !_chessboard.soundEnable;
+  }
+
   /// get history of moves from logic
   List<String> getSanHistory() {
     List<String> history = _logic.getHistorySAN();
