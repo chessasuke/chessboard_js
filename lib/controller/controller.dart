@@ -89,6 +89,13 @@ class ChessboardController {
     _chessboard.soundEnable = !_chessboard.soundEnable;
   }
 
+  setResult(ChessResult result) {
+    if (result != ChessResult.playing) {
+    _moveHistoryNotifier.setResult(result);
+    _chessboard.enableMoves = false;
+    }
+  }
+
   /// get history of moves from logic
   List<String> getSanHistory() {
     List<String> history = _logic.getHistorySAN();

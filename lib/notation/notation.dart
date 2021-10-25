@@ -113,10 +113,13 @@ class Notation extends StatelessWidget {
                         );
                       }),
                 ),
-                if (history.result != ChessResult.none)
-                  NotationTileResult(
-                    result: getResultFromEnum(history.result),
-                    style: style ?? TextStyle(),
+                if (history.result != ChessResult.playing)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: NotationTileResult(
+                      result: getResultFromEnum(history.result),
+                      style: style ?? TextStyle(),
+                    ),
                   )
               ],
             ),

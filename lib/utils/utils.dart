@@ -157,7 +157,9 @@ String getResultFromEnum(ChessResult result) {
       return '1-0';
     case ChessResult.black:
       return '1-0';
-    default:
+    case ChessResult.draw:
       return '1/2';
+    default:
+      return 'none';
   }
 }

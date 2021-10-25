@@ -105,7 +105,15 @@ class _ChessGameState extends State<ChessGame> {
                                 Icons.light_mode_sharp,
                               ),
                             ),
-                          )
+                          ),
+                           Tooltip(
+                            message: 'Set result to white won',
+                            child: InkWell(
+                              onTap: () =>
+                                  controller.setResult(ChessResult.white),
+                              child: Text('1-0', style: TextStyle(color: Colors.white)),
+                            ),
+                          ),
                         ],
                       )))
                 ],
