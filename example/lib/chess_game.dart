@@ -107,11 +107,14 @@ class _ChessGameState extends State<ChessGame> {
                             ),
                           ),
                            Tooltip(
-                            message: 'Set result to white won',
+                            message: 'Set result to black won',
                             child: InkWell(
                               onTap: () =>
-                                  controller.setResult(ChessResult.white),
-                              child: Text('1-0', style: TextStyle(color: Colors.white)),
+                                  controller.setResult(ChessResult.black),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text('B', style: TextStyle(color: Colors.white)),
+                              ),
                             ),
                           ),
                         ],
